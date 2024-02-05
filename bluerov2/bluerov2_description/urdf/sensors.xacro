@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!--
+    Some examples of sensors that can be added to the vehicle frame.
+    Set the origin of the sensor frames correctly for your application
+    Look into the sensor macros in the package uuv_sensor_ros_plugins/urdf for
+    more examples or add you own custom sensor units.
+  -->
+
+  <!-- Mount a Pose 3D sensor. -->
+  <xacro:default_pose_3d namespace="${namespace}" parent_link="${namespace}/base_link" />
+
+  <!-- IMU Sensor -->
+  <xacro:default_imu namespace="${namespace}" parent_link="${namespace}/base_link">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:default_imu>
+
+  <!-- Pressure Sensor  -->
+  <xacro:default_pressure namespace="${namespace}" parent_link="${namespace}/base_link">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:default_pressure>
+
+  <!-- Mount a camera -->
+  <xacro:bluerov_camera namespace="" parent_link="${namespace}/base_link" suffix="_front">
+    <origin xyz="0.22 0 0" rpy="0 ${50*pi/180} 0"/>
+  </xacro:bluerov_camera>
+
+  <!-- DVL (TODO: aggiustare corrispondenza tra la posizione e i dati del sensore) -->
+  <xacro:teledyne_wayfinder_dvl_macro namespace="${namespace}" parent_link="${namespace}/base_link" inertial_reference_frame="world">
+    <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+  </xacro:teledyne_wayfinder_dvl_macro>
+
+  <!-- Sonar (Ping360 scanning imaging sonar) -->
+  <xacro:ping360_bluerobotics namespace="${namespace}" parent_link="${namespace}/base_link" suffix="_ping360" >
+    <origin xyz="0.22 0 -0.0" rpy="0 ${40*pi/180} 0"/>
+  </xacro:ping360_bluerobotics>
+
+  <!-- Mount a GPS. -->
+  <xacro:default_gps namespace="${namespace}" parent_link="${namespace}/base_link" />
+
+</robot>
